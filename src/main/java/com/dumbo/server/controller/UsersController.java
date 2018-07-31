@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @Api(tags = "登录注册接口")
-@RequestMapping("/v1")
+@RequestMapping("/api/v1")
 public class UsersController {
 
     private final UsersServiceImpl usersServiceImpl;

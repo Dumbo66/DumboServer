@@ -20,7 +20,7 @@ import java.io.IOException;
 
 @RestController
 @Api(tags = "文件上传接口")
-@RequestMapping("/v1")
+@RequestMapping("/api/v1")
 public class FilesController {
     private final FilesServiceImpl filesServiceImpl;
 

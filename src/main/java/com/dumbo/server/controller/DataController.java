@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @Api(tags = "监测数据接口")
-@RequestMapping("/v1")
+@RequestMapping("/api/v1")
 public class DataController {
 
     private final DataServiceImpl dataServiceImpl;

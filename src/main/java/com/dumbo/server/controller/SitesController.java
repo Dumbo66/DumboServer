@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @Api(tags = "监测点信息接口")
-@RequestMapping("/v1")
+@RequestMapping("/api/v1")
 public class SitesController {
     private final SitesServiceImpl sitesServiceImpl;
 
