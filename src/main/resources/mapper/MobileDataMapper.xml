@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dumbo.server.dao.MobileDataDao">
+  <resultMap id="BaseResultMap" type="com.dumbo.server.entity.MobileData">
+    <id column="record_time" jdbcType="TIMESTAMP" property="recordTime" />
+    <result column="lat_bd09ll" jdbcType="DOUBLE" property="latBd09ll" />
+    <result column="lng_bd09ll" jdbcType="DOUBLE" property="lngBd09ll" />
+    <result column="ph" jdbcType="REAL" property="ph" />
+    <result column="temperature" jdbcType="REAL" property="temperature" />
+    <result column="dissolved_oxygen" jdbcType="REAL" property="dissolvedOxygen" />
+    <result column="conductivity" jdbcType="REAL" property="conductivity" />
+    <result column="turbidity" jdbcType="REAL" property="turbidity" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    record_time, lat_bd09ll, lng_bd09ll, ph, temperature, dissolved_oxygen, conductivity, 
+    turbidity
+  </sql>
+
+  <insert id="insert" parameterType="com.dumbo.server.entity.MobileData">
+    insert into mobile_data (record_time, lat_bd09ll, lng_bd09ll,
+      ph, temperature, dissolved_oxygen,
+      conductivity, turbidity)
+    values (#{recordTime,jdbcType=TIMESTAMP}, #{latBd09ll,jdbcType=DOUBLE}, #{lngBd09ll,jdbcType=DOUBLE},
+      #{ph,jdbcType=REAL}, #{temperature,jdbcType=REAL}, #{dissolvedOxygen,jdbcType=REAL},
+      #{conductivity,jdbcType=REAL}, #{turbidity,jdbcType=REAL})
+  </insert>
+
+  <delete id="deleteByDate" parameterType="java.lang.String">
+    delete from mobile_data
+    where record_time = #{recordTime,jdbcType=TIMESTAMP}
+  </delete>
+
+
+  <update id="update" parameterType="com.dumbo.server.entity.MobileData">
+    update mobile_data
+    set lat_bd09ll = #{latBd09ll,jdbcType=DOUBLE},
+      lng_bd09ll = #{lngBd09ll,jdbcType=DOUBLE},
+      ph = #{ph,jdbcType=REAL},
+      temperature = #{temperature,jdbcType=REAL},
+      dissolved_oxygen = #{dissolvedOxygen,jdbcType=REAL},
+      conductivity = #{conductivity,jdbcType=REAL},
+      turbidity = #{turbidity,jdbcType=REAL}
+    where record_time = #{recordTime,jdbcType=TIMESTAMP}
+  </update>
+
+  <select id="selectByDate" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT
+      <include refid = "Base_Column_List" />
+    FROM
+      mobile_data
+    WHERE
+      TO_DAYS(record_time) = TO_DAYS(#{date})
+  </select>
+</mapper>

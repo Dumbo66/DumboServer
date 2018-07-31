@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dumbo.server.dao.DataDao">
+    <resultMap id="BaseResultMap" type="com.dumbo.server.entity.Data">
+        <result column="site" jdbcType="INTEGER" property="site" />
+        <result column="record_time" jdbcType="TIMESTAMP" property="recordTime" />
+        <result column="ph" jdbcType="FLOAT" property="ph" />
+        <result column="temperature" jdbcType="FLOAT" property="temperature" />
+        <result column="dissolved_oxygen" jdbcType="FLOAT" property="dissolvedOxygen" />
+        <result column="conductivity" jdbcType="FLOAT" property="conductivity" />
+        <result column="turbidity" jdbcType="FLOAT" property="turbidity" />
+    </resultMap>
+
+    <resultMap id="PreOneHourDataAvgResultMap" type="com.dumbo.server.entity.Data">
+        <result column="site" jdbcType="INTEGER" property="site" />
+        <result column="date_sub(date_format(now(), '%Y-%m-%d %H:00:00'),INTERVAL 1 HOUR)" jdbcType="TIMESTAMP" property="recordTime" />
+        <result column="ROUND(AVG(ph),2)" jdbcType="FLOAT" property="ph" />
+        <result column="ROUND(AVG(temperature),2)" jdbcType="FLOAT" property="temperature" />
+        <result column="ROUND(AVG(dissolved_oxygen),2)" jdbcType="FLOAT" property="dissolvedOxygen" />
+        <result column="ROUND(AVG(conductivity),2)" jdbcType="FLOAT" property="conductivity" />
+        <result column="ROUND(AVG(turbidity),2)" jdbcType="FLOAT" property="turbidity" />
+    </resultMap>
+
+    <resultMap id="PerHourDataAvgResultMap" type="com.dumbo.server.entity.Data">
+        <result column="site" jdbcType="INTEGER" property="site" />
+        <result column="record_time" jdbcType="TIMESTAMP" property="recordTime" />
+        <result column="ROUND(AVG(ph), 2)" jdbcType="FLOAT" property="ph" />
+        <result column="ROUND(AVG(temperature), 2)" jdbcType="FLOAT" property="temperature" />
+        <result column="ROUND(AVG(dissolved_oxygen), 2)" jdbcType="FLOAT" property="dissolvedOxygen" />
+        <result column="ROUND(AVG(conductivity), 2)" jdbcType="FLOAT" property="conductivity" />
+        <result column="ROUND(AVG(turbidity), 2)" jdbcType="FLOAT" property="turbidity" />
+    </resultMap>
+
+    <!--增-->
+    <insert id="insert" parameterType="com.dumbo.server.entity.Data">
+       INSERT INTO DATA
+          (site,record_time,ph,temperature,
+          dissolved_oxygen,conductivity,turbidity)
+       VALUES
+          (#{record_time,jdbcType=TIMESTAMP}, #{site,jdbcType=FLOAT},
+          #{ph,jdbcType=FLOAT},#{temperature,jdbcType=FLOAT},
+          #{dissolvedOxygen,jdbcType=FLOAT}, #{conductivity,jdbcType=FLOAT},
+          #{turbidity,jdbcType=FLOAT})
+  </insert>
+
+    <!--查询某站点最新监测数据-->
+    <select id="selectLatestData" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        SELECT
+            *
+        FROM
+            data
+        WHERE
+            site = #{site} order by record_time desc limit 1;
+    </select>
+
+    <!--查询所有站点最新监测数据-->
+    <select id="selectAllLatestData" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        SELECT
+            *
+        FROM
+            data
+        ORDER BY
+            record_time DESC,
+            site
+        LIMIT #{count};
+    </select>
+
+    <!--查询某站点最近一小时平均监测数据-->
+    <select id="selectPreOneHourDataAvg"  parameterType="java.lang.Integer" resultMap="PreOneHourDataAvgResultMap">
+        SELECT
+            site,
+            date_sub(date_format(now(), '%Y-%m-%d %H:00:00'),INTERVAL 1 HOUR),
+            ROUND(AVG(ph),2),
+            ROUND(AVG(temperature),2),
+            ROUND(AVG(dissolved_oxygen),2),
+            ROUND(AVG(conductivity),2),
+            ROUND(AVG(turbidity),2)
+        FROM
+            data
+        WHERE
+            site = #{site}
+            AND record_time BETWEEN date_sub(
+                    date_format(now(), '%Y-%m-%d %H:00:00'),
+                    INTERVAL 1 HOUR
+            )
+            AND date_format(now(), '%Y-%m-%d %H:00:00');
+    </select>
+
+    <!--查询某站点当天每小时平均监测数据-->
+    <select id="selectPerHourDataAvg"  parameterType="map" resultMap="PerHourDataAvgResultMap">
+        SELECT
+            site,
+            record_time,
+            ROUND(AVG(ph), 2),
+            ROUND(AVG(temperature), 2),
+            ROUND(AVG(dissolved_oxygen), 2),
+            ROUND(AVG(conductivity), 2),
+            ROUND(AVG(turbidity), 2)
+        FROM
+            data
+        WHERE
+            TO_DAYS(record_time) = TO_DAYS(#{date})
+            AND site = #{site}
+        GROUP BY
+            HOUR (record_time);
+    </select>
+</mapper>

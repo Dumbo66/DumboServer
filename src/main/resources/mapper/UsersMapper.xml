@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dumbo.server.dao.UsersDao">
+
+  <resultMap id="BaseResultMap" type="com.dumbo.server.entity.Users">
+    <id column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="nick_name" jdbcType="VARCHAR" property="nickName" />
+    <result column="sex" jdbcType="VARCHAR" property="sex" />
+    <result column="birthday" jdbcType="DATE" property="birthday" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="icon_url" jdbcType="VARCHAR" property="iconUrl" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    phone, id, nick_name, sex, birthday, password, icon_url
+  </sql>
+
+  <!--增-->
+  <insert id="insert" parameterType="com.dumbo.server.entity.Users">
+     INSERT INTO
+       users(phone, nick_name,sex,birthday,PASSWORD,icon_url)
+     VALUES
+       ( #{phone,jdbcType=VARCHAR}, #{nick_name,jdbcType=VARCHAR},
+          #{sex,jdbcType=VARCHAR},#{birthday,jdbcType=DATE},
+          #{password,jdbcType=VARCHAR}, #{iconUrl,jdbcType=VARCHAR})
+  </insert>
+
+  <!--删-->
+  <delete id="deleteByPhone" parameterType="java.lang.String">
+     DELETE
+     FROM
+        users
+     WHERE
+        phone = #{phone,jdbcType=VARCHAR}
+  </delete>
+
+  <!--改-->
+  <update id="update" parameterType="com.dumbo.server.entity.Users">
+     UPDATE users SET
+       nick_name = #{nick_name,jdbcType=VARCHAR},
+       sex = #{sex,jdbcType=VARCHAR},
+       birthday = #{birthday,jdbcType=DATE},
+       PASSWORD = #{password,jdbcType=VARCHAR},
+       icon_url = #{iconUrl,jdbcType=VARCHAR}
+    WHERE
+       phone = #{phone,jdbcType=VARCHAR}
+  </update>
+
+  <!--通过电话号码查询-->
+  <select id="selectByPhone" parameterType="java.lang.String" resultMap="BaseResultMap">
+     SELECT
+        <include refid = "Base_Column_List" />
+     FROM
+        users
+     WHERE
+        phone = #{phone,jdbcType=VARCHAR}
+  </select>
+
+  <!--通过电话号码查询-->
+  <select id="selectById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+      SELECT
+        <include refid = "Base_Column_List" />
+      FROM
+        users
+      WHERE
+        id = #{id}
+    </select>
+</mapper>
