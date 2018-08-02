@@ -1,4 +1,6 @@
-
+name: DumboServer
+server:
+  port: 80
 ########################## MySql配置 ###########################
 spring:
   datasource:
