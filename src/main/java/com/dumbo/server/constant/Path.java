@@ -5,5 +5,5 @@ package com.dumbo.server.constant;
  **/
 
 public class Path {
-    public static final String PHOTOS_PATH="D:\\Dumbo\\Photos";
+    public static final String PHOTOS_PATH="C:\\Dumbo\\Pictures";
 }

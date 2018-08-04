@@ -15,6 +15,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.xml.bind.DatatypeConverter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.UUID;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -22,20 +25,8 @@ public class ServerApplicationTests {
 
     @Test
     public void test() {
-        String refreshJwt=JwtFactory.createRefreshJwt(1+"");
-        System.out.println(refreshJwt);
-
-        try {//签名校验成功&未过期
-            Claims claims=Jwts.parser()
-                    .setSigningKey(DatatypeConverter.parseBase64Binary(SecretKey.JWT_SECRET_KEY))
-                    .parseClaimsJws(refreshJwt).getBody();
-            //生成JWT并返回给客户端
-            String newAccessJwt=JwtFactory.createAccessJwt(claims.getId(),"dumbo","general_user","all");
-            System.out.println("签名校验成功");
-        } catch (SignatureException e) {//签名校验失败
-            System.out.println("签名校验失败");
-        } catch (ExpiredJwtException e){//已过期
-            System.out.println("AccessToken已过期,重新获取token");
-        }
+        Date date=new Date();
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd_HHmmss");
+        System.out.println(sdf.format(date));
     }
 }

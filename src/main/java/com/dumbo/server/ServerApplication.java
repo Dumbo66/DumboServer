@@ -17,7 +17,7 @@ import org.springframework.cache.annotation.EnableCaching;
 @SpringBootApplication  // 等同于@Configuration+@EnableAutoConfiguration+@ComponentScan
 @MapperScan("com.dumbo.server.dao") //扫描指定包下dao
 @EnableCaching  //开启缓存功能
-public class ServerApplication /*extends SpringBootServletInitializer*/ {
+public class ServerApplication /*extends SpringBootServletInitializer */{
 
     /*一般启动类*/
     public static void main(String[] args) {
