@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dumbo.server.dao.MomentsDao">
+  <resultMap id="BaseResultMap" type="com.dumbo.server.entity.Moments">
+    <id column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="record_time" jdbcType="TIMESTAMP" property="recordTime" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="pictures_url" jdbcType="VARCHAR" property="picturesUrl" />
+    <result column="lat_bd09ll" jdbcType="DOUBLE" property="latBd09ll" />
+    <result column="lng_bd09ll" jdbcType="DOUBLE" property="lngBd09ll" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    user_id, record_time, description, pictures_url, lat_bd09ll, lng_bd09ll, address
+  </sql>
+  <select id="selectByCount" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+       SELECT * FROM moments ORDER BY record_time DESC LIMIT #{count};
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from moments
+    where user_id = #{userId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dumbo.server.entity.Moments">
+    insert into moments (user_id, record_time, description, 
+      pictures_url, lat_bd09ll, lng_bd09ll, 
+      address)
+    values (#{userId,jdbcType=INTEGER}, #{recordTime,jdbcType=TIMESTAMP}, #{description,jdbcType=VARCHAR}, 
+      #{picturesUrl,jdbcType=VARCHAR}, #{latBd09ll,jdbcType=DOUBLE}, #{lngBd09ll,jdbcType=DOUBLE}, 
+      #{address,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dumbo.server.entity.Moments">
+    insert into moments
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="recordTime != null">
+        record_time,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="picturesUrl != null">
+        pictures_url,
+      </if>
+      <if test="latBd09ll != null">
+        lat_bd09ll,
+      </if>
+      <if test="lngBd09ll != null">
+        lng_bd09ll,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="recordTime != null">
+        #{recordTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="picturesUrl != null">
+        #{picturesUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="latBd09ll != null">
+        #{latBd09ll,jdbcType=DOUBLE},
+      </if>
+      <if test="lngBd09ll != null">
+        #{lngBd09ll,jdbcType=DOUBLE},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dumbo.server.entity.Moments">
+    update moments
+    <set>
+      <if test="recordTime != null">
+        record_time = #{recordTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="picturesUrl != null">
+        pictures_url = #{picturesUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="latBd09ll != null">
+        lat_bd09ll = #{latBd09ll,jdbcType=DOUBLE},
+      </if>
+      <if test="lngBd09ll != null">
+        lng_bd09ll = #{lngBd09ll,jdbcType=DOUBLE},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dumbo.server.entity.Moments">
+    update moments
+    set record_time = #{recordTime,jdbcType=TIMESTAMP},
+      description = #{description,jdbcType=VARCHAR},
+      pictures_url = #{picturesUrl,jdbcType=VARCHAR},
+      lat_bd09ll = #{latBd09ll,jdbcType=DOUBLE},
+      lng_bd09ll = #{lngBd09ll,jdbcType=DOUBLE},
+      address = #{address,jdbcType=VARCHAR}
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+</mapper>

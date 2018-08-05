@@ -25,8 +25,10 @@ public class ServerApplicationTests {
 
     @Test
     public void test() {
-        Date date=new Date();
-        SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd_HHmmss");
-        System.out.println(sdf.format(date));
+      String str="&/pictures/img_20180805_104511_1166.jpg&/pictures/img_20180805_104511_3660.jpg";
+        String[] ss=str.split("&");
+        for (int i=0;i<ss.length ;i++){
+            System.out.println(ss[i]);
+        }
     }
 }
