@@ -7,7 +7,6 @@ import java.util.Date;
 public class Moments {
     private Integer userId;
 
-    @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm:ss")
     private Date recordTime;
 
     private String description;

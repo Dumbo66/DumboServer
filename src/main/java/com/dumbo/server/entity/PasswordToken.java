@@ -1,6 +1,6 @@
 package com.dumbo.server.entity;
 
-import com.dumbo.server.util.RSAUtil;
+import com.dumbo.server.util.EncryptUtil;
 import org.apache.shiro.authc.AuthenticationToken;
 
 /**
@@ -18,7 +18,7 @@ public class PasswordToken implements AuthenticationToken {
         this.appId = appId;
         this.timestamp = timestamp;
         this.host = host;
-        this.password = RSAUtil.encrypt(tokenKey);
+        this.password = EncryptUtil.encrypt(tokenKey);
         this.tokenKey = tokenKey;
 
     }

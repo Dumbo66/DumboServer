@@ -6,8 +6,8 @@ import com.dumbo.server.entity.Response;
 import com.dumbo.server.entity.Users;
 import com.dumbo.server.service.UsersService;
 import com.dumbo.server.shiro.JwtFactory;
-import com.dumbo.server.util.MD5Util;
-import com.dumbo.server.util.RSAUtil;
+import com.dumbo.server.util.EncryptUtil;
+import com.dumbo.server.util.EncryptUtil;
 import com.dumbo.server.util.ResponseUtil;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -43,11 +43,11 @@ public class UsersServiceImpl implements UsersService{
         String Base64RsaEncryptedPasw= users.getPassword();
 
         //RSA解密
-        String md5Pasw=RSAUtil.decrypt(Base64RsaEncryptedPasw);
+        String md5Pasw=EncryptUtil.decrypt(Base64RsaEncryptedPasw);
         System.out.println("解密后:"+md5Pasw);
 
         //加盐
-        String salty2Md5Pasw=MD5Util.addSalt(md5Pasw);
+        String salty2Md5Pasw=EncryptUtil.addSalt(md5Pasw);
         System.out.println("加盐后:"+salty2Md5Pasw);
 
         //存储加盐的MD5
@@ -99,14 +99,14 @@ public class UsersServiceImpl implements UsersService{
         String RsaEncryptedPasw= users.getPassword();
 
         //RSA解密
-        String md5Pasw=RSAUtil.decrypt(RsaEncryptedPasw);
+        String md5Pasw=EncryptUtil.decrypt(RsaEncryptedPasw);
         System.out.println("解密后:"+md5Pasw);
 
         if(usersDao.selectByPhone(loginPhone)==null){//未注册
             return ResponseUtil.unregistered();
         }else{//已注册
             String salty2Md5Pasw= usersDao.selectByPhone(loginPhone).getPassword();
-            if(MD5Util.verify(salty2Md5Pasw,md5Pasw)){//核对密码
+            if(EncryptUtil.verify(salty2Md5Pasw,md5Pasw)){//核对密码
                 //生成accessToken和refreshToken并返回给客户端
                 int userId=usersDao.selectByPhone(loginPhone).getId();//获取数据库自增id
                 String accessJwt=JwtFactory.createAccessJwt(userId+"","dumbo","general_user","all");
