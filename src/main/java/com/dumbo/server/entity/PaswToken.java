@@ -7,14 +7,14 @@ import org.apache.shiro.authc.AuthenticationToken;
  * Created by Dumbo on 2018/5/22
  **/
 
-public class PasswordToken implements AuthenticationToken {
+public class PaswToken implements AuthenticationToken {
     private String appId;
     private String password;
     private String timestamp;
     private String host;
     private String tokenKey;
 
-    public PasswordToken(String appId, String password, String timestamp, String host, String tokenKey) {
+    public PaswToken(String appId, String password, String timestamp, String host, String tokenKey) {
         this.appId = appId;
         this.timestamp = timestamp;
         this.host = host;

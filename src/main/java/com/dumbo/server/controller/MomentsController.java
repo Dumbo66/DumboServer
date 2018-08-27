@@ -2,6 +2,7 @@ package com.dumbo.server.controller;
 
 import com.dumbo.server.entity.Response;
 import com.dumbo.server.service.serviceImpl.MomentsServiceImpl;
+import com.github.pagehelper.PageHelper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,8 +34,8 @@ public class MomentsController {
 
     @GetMapping("/moments")
     @ApiOperation("获取Moments动态内容（图文）")
-    private Response getMoments(@RequestParam int count){
-        return momentsServiceImpl.getMoments(count);
+    private Response getMoments(@RequestParam int pageNum,@RequestParam int pageSize){
+        return momentsServiceImpl.getMoments(pageNum,pageSize);
     }
 
 }

@@ -30,8 +30,8 @@ public class SitesServiceImpl implements SitesService {
 
     /*删*/
     @Override
-    public Response deleteSite(int site){
-        sitesDao.deleteBySite(site);
+    public Response deleteSite(int siteId){
+        sitesDao.deleteBySiteId(siteId);
         return ResponseUtil.ok("删除监测点成功");
     }
 
@@ -44,8 +44,8 @@ public class SitesServiceImpl implements SitesService {
 
     /*查询一条记录*/
     @Override
-    public Response selectSite(int site){
-        return ResponseUtil.ok("查询监测点"+site+"信息成功",sitesDao.selectBySite(site));
+    public Response selectSite(int siteId){
+        return ResponseUtil.ok("查询监测点"+siteId+"信息成功",sitesDao.selectBySiteId(siteId));
     }
 
     /*查询所有记录*/

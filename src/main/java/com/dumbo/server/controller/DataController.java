@@ -28,27 +28,27 @@ public class DataController {
 
     /*****************************定点监测数据*******************************/
     @GetMapping("/latest_data")
-    @ApiOperation("查询某站点最新监测数据")
-    public Response selectLatestData(@RequestParam int site){
-        return dataServiceImpl.selectLatestData(site);
+    @ApiOperation("查询某站点最新定点监测数据")
+    public Response selectLatestData(@RequestParam int siteId){
+        return dataServiceImpl.selectLatestData(siteId);
     }
 
     @GetMapping("/all_latest_data")
-    @ApiOperation("查询多个站点最新监测数据")
+    @ApiOperation("查询多个站点最新定点监测数据")
     public Response selectAllLatestData(@RequestParam int count){
         return dataServiceImpl.selectAllLatestData(count);
     }
 
     @GetMapping("/pre_one_hour_data")
-    @ApiOperation("查询某站点最近一小时平均监测数据")
-    public Response selectPreOneHourDataAvg(@RequestParam int site){
-        return dataServiceImpl.selectPreOneHourDataAvg(site);
+    @ApiOperation("查询某站点最近一小时平均定点监测数据")
+    public Response selectPreOneHourDataAvg(@RequestParam int siteId){
+        return dataServiceImpl.selectPreOneHourDataAvg(siteId);
     }
 
     @GetMapping("/per_hour_data")
-    @ApiOperation("查询某站点某天每小时平均监测数据")
-    public Response selectPerHourDataAvg(@RequestParam int site, @RequestParam String date){
-        return dataServiceImpl.selectPerHourDataAvg(site,date);
+    @ApiOperation("查询某站点某天每小时平均定点监测数据")
+    public Response selectPerHourDataAvg(@RequestParam int siteId, @RequestParam String date){
+        return dataServiceImpl.selectPerHourDataAvg(siteId,date);
     }
 
     /*****************************移动监测数据*******************************/

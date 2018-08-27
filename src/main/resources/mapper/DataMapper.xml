@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dumbo.server.dao.DataDao">
+
+    <sql id="Base_Column_List">
+       site_id,record_time,ph,temperature,dissolved_oxygen,conductivity,turbidity
+    </sql>
+
     <resultMap id="BaseResultMap" type="com.dumbo.server.entity.Data">
-        <result column="site" jdbcType="INTEGER" property="site" />
+        <result column="site_id" jdbcType="INTEGER" property="siteId" />
         <result column="record_time" jdbcType="TIMESTAMP" property="recordTime" />
         <result column="ph" jdbcType="FLOAT" property="ph" />
         <result column="temperature" jdbcType="FLOAT" property="temperature" />
@@ -12,7 +17,7 @@
     </resultMap>
 
     <resultMap id="PreOneHourDataAvgResultMap" type="com.dumbo.server.entity.Data">
-        <result column="site" jdbcType="INTEGER" property="site" />
+        <result column="site_id" jdbcType="INTEGER" property="siteId" />
         <result column="date_sub(date_format(now(), '%Y-%m-%d %H:00:00'),INTERVAL 1 HOUR)" jdbcType="TIMESTAMP" property="recordTime" />
         <result column="ROUND(AVG(ph),2)" jdbcType="FLOAT" property="ph" />
         <result column="ROUND(AVG(temperature),2)" jdbcType="FLOAT" property="temperature" />
@@ -22,7 +27,7 @@
     </resultMap>
 
     <resultMap id="PerHourDataAvgResultMap" type="com.dumbo.server.entity.Data">
-        <result column="site" jdbcType="INTEGER" property="site" />
+        <result column="site_id" jdbcType="INTEGER" property="siteId" />
         <result column="record_time" jdbcType="TIMESTAMP" property="recordTime" />
         <result column="ROUND(AVG(ph), 2)" jdbcType="FLOAT" property="ph" />
         <result column="ROUND(AVG(temperature), 2)" jdbcType="FLOAT" property="temperature" />
@@ -34,10 +39,9 @@
     <!--增-->
     <insert id="insert" parameterType="com.dumbo.server.entity.Data">
        INSERT INTO DATA
-          (site,record_time,ph,temperature,
-          dissolved_oxygen,conductivity,turbidity)
+          (record_time,ph,temperature,dissolved_oxygen,conductivity,turbidity)
        VALUES
-          (#{record_time,jdbcType=TIMESTAMP}, #{site,jdbcType=FLOAT},
+          (#{record_time,jdbcType=TIMESTAMP}, #{site_id,jdbcType=FLOAT},
           #{ph,jdbcType=FLOAT},#{temperature,jdbcType=FLOAT},
           #{dissolvedOxygen,jdbcType=FLOAT}, #{conductivity,jdbcType=FLOAT},
           #{turbidity,jdbcType=FLOAT})
@@ -46,29 +50,29 @@
     <!--查询某站点最新监测数据-->
     <select id="selectLatestData" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         SELECT
-            *
+          <include refid = "Base_Column_List" />
         FROM
             data
         WHERE
-            site = #{site} order by record_time desc limit 1;
+            site_id = #{siteId} order by record_time desc limit 1;
     </select>
 
     <!--查询所有站点最新监测数据-->
     <select id="selectAllLatestData" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         SELECT
-            *
+             <include refid = "Base_Column_List" />
         FROM
             data
         ORDER BY
             record_time DESC,
-            site
+            site_id
         LIMIT #{count};
     </select>
 
     <!--查询某站点最近一小时平均监测数据-->
     <select id="selectPreOneHourDataAvg"  parameterType="java.lang.Integer" resultMap="PreOneHourDataAvgResultMap">
         SELECT
-            site,
+            site_id,
             date_sub(date_format(now(), '%Y-%m-%d %H:00:00'),INTERVAL 1 HOUR),
             ROUND(AVG(ph),2),
             ROUND(AVG(temperature),2),
@@ -78,7 +82,7 @@
         FROM
             data
         WHERE
-            site = #{site}
+            site_id = #{siteId}
             AND record_time BETWEEN date_sub(
                     date_format(now(), '%Y-%m-%d %H:00:00'),
                     INTERVAL 1 HOUR
@@ -89,7 +93,7 @@
     <!--查询某站点当天每小时平均监测数据-->
     <select id="selectPerHourDataAvg"  parameterType="map" resultMap="PerHourDataAvgResultMap">
         SELECT
-            site,
+            site_id,
             record_time,
             ROUND(AVG(ph), 2),
             ROUND(AVG(temperature), 2),
@@ -100,7 +104,7 @@
             data
         WHERE
             TO_DAYS(record_time) = TO_DAYS(#{date})
-            AND site = #{site}
+            AND site_id = #{siteId}
         GROUP BY
             HOUR (record_time);
     </select>

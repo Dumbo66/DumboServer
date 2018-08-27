@@ -29,49 +29,53 @@ public class DataServiceImpl implements DataService {
     }
 
     /*****************************定点监测数据*******************************/
-    /*查询某站点最新监测数据*/
+    /*查询某站点最新定点监测数据*/
     @Override
-    public Response selectLatestData(int site){
-        return ResponseUtil.ok("请求数据成功！",dataDao.selectLatestData(site));
+    public Response selectLatestData(int siteId){
+        return ResponseUtil.ok("请求数据成功！",dataDao.selectLatestData(siteId));
     }
 
-    /*查询所有站点最新监测数据*/
+    /*查询所有站点最新定点监测数据*/
     @Override
     public Response selectAllLatestData(int count){
         return ResponseUtil.ok("请求数据成功！",dataDao.selectAllLatestData(count));
     }
 
-    /*查询某站点最近一小时平均监测数据*/
+    /*查询某站点最近一小时平均定点监测数据*/
     @Override
-    public Response selectPreOneHourDataAvg(int site){
-        return  ResponseUtil.ok("请求数据成功！",dataDao.selectPreOneHourDataAvg(site));
+    public Response selectPreOneHourDataAvg(int siteId){
+        return  ResponseUtil.ok("请求数据成功！",dataDao.selectPreOneHourDataAvg(siteId));
     }
 
-    /*查询某站点某天每小时平均监测数据*/
+    /*查询某站点某天每小时平均定点监测数据*/
     @Override
-    public Response selectPerHourDataAvg(int site, String date){
-        return  ResponseUtil.ok("请求数据成功！",dataDao.selectPerHourDataAvg(site,date));
+    public Response selectPerHourDataAvg(int siteId, String date){
+        return  ResponseUtil.ok("请求数据成功！",dataDao.selectPerHourDataAvg(siteId,date));
     }
 
     /*****************************移动监测数据*******************************/
+    /*增加移动监测数据*/
     @Override
     public Response insertMobileData(MobileData mobileData) {
         mobileDataDao.insert(mobileData);
         return ResponseUtil.ok("增加移动监测数据成功！");
     }
 
+    /*删除移动监测数据*/
     @Override
     public Response deleteMobileData(String date) {
         mobileDataDao.deleteByDate(date);
         return ResponseUtil.ok("删除移动监测数据成功！");
     }
 
+    /*修改移动监测数据*/
     @Override
     public Response updateMobileData(MobileData mobileData) {
         mobileDataDao.update(mobileData);
         return ResponseUtil.ok("修改移动监测数据成功！");
     }
 
+    /*查询移动监测数据*/
     @Override
     public Response selectMobileData(String date) {
         return ResponseUtil.ok("查询移动监测数据成功！",mobileDataDao.selectByDate(date));

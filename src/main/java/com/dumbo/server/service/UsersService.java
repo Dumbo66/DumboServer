@@ -2,6 +2,10 @@ package com.dumbo.server.service;
 
 import com.dumbo.server.entity.Response;
 import com.dumbo.server.entity.Users;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.Map;
 
 /**
  * --用户业务接口-
@@ -11,7 +15,7 @@ import com.dumbo.server.entity.Users;
 
 public interface UsersService {
     /*手机号密码注册*/
-    Response registerByPasw(Users users);
+    Response registerByPasw(Map<String,Object> map,MultipartFile file);
 
     /*删除某用户所有信息*/
     Response deleteUser(String phone);

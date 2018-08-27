@@ -5,13 +5,15 @@ import com.dumbo.server.entity.Moments;
 import java.util.List;
 
 public interface MomentsDao {
-    int deleteByPrimaryKey(Integer userId);
+    List<Moments> selectAll();
+
+    int deleteByPrimaryKey(Integer momentId);
 
     int insert(Moments record);
 
     int insertSelective(Moments record);
 
-    List<Moments> selectByCount(Integer count);
+    Moments selectByPrimaryKey(Integer momentId);
 
     int updateByPrimaryKeySelective(Moments record);
 

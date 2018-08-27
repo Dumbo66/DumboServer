@@ -4,7 +4,7 @@
 
   <resultMap id="BaseResultMap" type="com.dumbo.server.entity.Users">
     <id column="phone" jdbcType="VARCHAR" property="phone" />
-    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
     <result column="nick_name" jdbcType="VARCHAR" property="nickName" />
     <result column="sex" jdbcType="VARCHAR" property="sex" />
     <result column="birthday" jdbcType="DATE" property="birthday" />
@@ -13,15 +13,15 @@
   </resultMap>
 
   <sql id="Base_Column_List">
-    phone, id, nick_name, sex, birthday, password, icon_url
+    phone, user_id, nick_name, sex, birthday, password, icon_url
   </sql>
 
   <!--增-->
   <insert id="insert" parameterType="com.dumbo.server.entity.Users">
-     INSERT INTO
-       users(phone, nick_name,sex,birthday,PASSWORD,icon_url)
+     INSERT INTO users
+        (phone, nick_name,sex,birthday,password,icon_url)
      VALUES
-       ( #{phone,jdbcType=VARCHAR}, #{nick_name,jdbcType=VARCHAR},
+       ( #{phone,jdbcType=VARCHAR}, #{nickName,jdbcType=VARCHAR},
           #{sex,jdbcType=VARCHAR},#{birthday,jdbcType=DATE},
           #{password,jdbcType=VARCHAR}, #{iconUrl,jdbcType=VARCHAR})
   </insert>
@@ -38,7 +38,7 @@
   <!--改-->
   <update id="update" parameterType="com.dumbo.server.entity.Users">
      UPDATE users SET
-       nick_name = #{nick_name,jdbcType=VARCHAR},
+       nickName = #{nickName,jdbcType=VARCHAR},
        sex = #{sex,jdbcType=VARCHAR},
        birthday = #{birthday,jdbcType=DATE},
        PASSWORD = #{password,jdbcType=VARCHAR},
@@ -58,12 +58,12 @@
   </select>
 
   <!--通过电话号码查询-->
-  <select id="selectById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByUserId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
       SELECT
         <include refid = "Base_Column_List" />
       FROM
         users
       WHERE
-        id = #{id}
+        user_id = #{userId,jdbcType=INTEGER}
     </select>
 </mapper>

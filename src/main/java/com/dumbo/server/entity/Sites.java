@@ -10,7 +10,7 @@ import io.swagger.annotations.ApiModelProperty;
 
 public class Sites {
     @ApiModelProperty(value = "监测点号")
-    private int site;
+    private int siteId;
 
     @ApiModelProperty(value = "纬度（如39.933527）<bd09ll坐标系>")
     private double latBd09ll;
@@ -40,8 +40,8 @@ public class Sites {
         this.description = description;
     }
 
-    public int getSite() {
-        return site;
+    public int getSiteId() {
+        return siteId;
     }
 
     public double getLatBd09ll() {

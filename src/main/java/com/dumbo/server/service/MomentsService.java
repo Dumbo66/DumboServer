@@ -15,5 +15,5 @@ public interface MomentsService {
     public Response postMoments(Map<String,Object> map , MultipartFile[] files);
 
     /*请求动态*/
-    public Response getMoments(int count);
+    public Response getMoments(int page,int count);
 }

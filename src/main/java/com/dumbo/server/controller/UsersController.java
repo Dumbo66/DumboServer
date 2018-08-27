@@ -8,6 +8,9 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.Map;
 
 /**
  * --用户控制类--
@@ -29,8 +32,8 @@ public class UsersController {
 
     @PostMapping("/users")
     @ApiOperation("手机号密码注册")
-    public Response  registerByPasw(@RequestBody Users users){
-        return usersServiceImpl.registerByPasw(users);
+    public Response  registerByPasw(@RequestParam Map<String,Object> map, @RequestParam MultipartFile file){
+        return usersServiceImpl.registerByPasw(map,file);
     }
 
     @DeleteMapping("/users")
@@ -49,6 +52,12 @@ public class UsersController {
     @ApiOperation("查询某用户信息")
     public Response selectUser(@RequestParam String phone){
         return usersServiceImpl.selectUser(phone);
+    }
+
+    @PostMapping("/ver_codes")
+    @ApiOperation("手机号验证码登录")
+    public Response  loginByVerCode(@RequestBody Users users){
+        return usersServiceImpl.loginByVercode(users);
     }
 
     @PostMapping("/tokens")
@@ -75,11 +84,4 @@ public class UsersController {
     public Response refreshJwt(@RequestParam String refreshJwt){
         return usersServiceImpl.verifyRefreshJwt(refreshJwt);
     }
-
-    @PostMapping("/vercodes")
-    @ApiOperation("手机号验证码登录")
-    public Response  loginByVerCode(@RequestBody Users users){
-        return usersServiceImpl.loginByVercode(users);
-    }
-
 }

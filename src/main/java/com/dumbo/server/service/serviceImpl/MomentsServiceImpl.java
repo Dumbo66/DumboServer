@@ -1,11 +1,12 @@
 package com.dumbo.server.service.serviceImpl;
 
-import com.dumbo.server.constant.Path;
+import com.dumbo.server.constant.Common;
 import com.dumbo.server.dao.MomentsDao;
 import com.dumbo.server.entity.Moments;
 import com.dumbo.server.entity.Response;
 import com.dumbo.server.service.MomentsService;
 import com.dumbo.server.util.ResponseUtil;
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -47,7 +48,7 @@ public class MomentsServiceImpl implements MomentsService {
             }
 
             //文件存放文件夹
-            File photosFile = new File(Path.PHOTOS_PATH + File.separator + fileName);
+            File photosFile = new File(Common.MOMENT_PHOTOS_PATH + File.separator + fileName);
             //判断文件父目录是否存在
             if (!photosFile.getParentFile().exists()) {
                 photosFile.getParentFile().mkdirs();
@@ -63,22 +64,26 @@ public class MomentsServiceImpl implements MomentsService {
 
         //获取文本描述信息
         String userId=map.get("user_id").toString();
-        String desc=map.get("desc").toString();
-        String timeStr=map.get("time").toString();
+        String avatarUrl=map.get("avatar_url").toString();
+        String nickName=map.get("nick_name").toString();
+        String recordTime=map.get("record_time").toString();
+        String desc=map.get("description").toString();
         SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date time= null;
         try {
-            time = sdf.parse(timeStr);
+            time = sdf.parse(recordTime);
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        String addr=map.get("addr").toString();
+        String addr=map.get("address").toString();
         String lat=map.get("lat").toString();
         String lng=map.get("lng").toString();
 
         //new Moments()
         Moments moments=new Moments();
         moments.setUserId(Integer.valueOf(userId));
+        moments.setAvatarUrl(avatarUrl);
+        moments.setNickName(nickName);
         moments.setDescription(desc);
         moments.setRecordTime(time);
         moments.setAddress(addr);
@@ -94,7 +99,8 @@ public class MomentsServiceImpl implements MomentsService {
     }
 
     @Override
-    public Response getMoments(int count) {
-        return ResponseUtil.ok("请求动态Moments成功！",momentsDao.selectByCount(count));
+    public Response getMoments(int pageNum,int pageSize) {
+        PageHelper.startPage(pageNum,pageSize,"record_time desc");
+        return ResponseUtil.ok("请求动态Moments成功！",momentsDao.selectAll());
     }
 }

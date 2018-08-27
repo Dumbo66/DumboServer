@@ -2,7 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dumbo.server.dao.MomentsDao">
   <resultMap id="BaseResultMap" type="com.dumbo.server.entity.Moments">
-    <id column="user_id" jdbcType="INTEGER" property="userId" />
+    <id column="moment_id" jdbcType="INTEGER" property="momentId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="nick_name" jdbcType="VARCHAR" property="nickName" />
+    <result column="avatar_url" jdbcType="VARCHAR" property="avatarUrl" />
     <result column="record_time" jdbcType="TIMESTAMP" property="recordTime" />
     <result column="description" jdbcType="VARCHAR" property="description" />
     <result column="pictures_url" jdbcType="VARCHAR" property="picturesUrl" />
@@ -11,28 +14,51 @@
     <result column="address" jdbcType="VARCHAR" property="address" />
   </resultMap>
   <sql id="Base_Column_List">
-    user_id, record_time, description, pictures_url, lat_bd09ll, lng_bd09ll, address
+    moment_id, user_id, nick_name, avatar_url, record_time, description, pictures_url, 
+    lat_bd09ll, lng_bd09ll, address
   </sql>
-  <select id="selectByCount" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-       SELECT * FROM moments ORDER BY record_time DESC LIMIT #{count};
+
+  <select id="selectAll" resultMap="BaseResultMap">
+      SELECT
+      <include refid = "Base_Column_List" />
+      FROM
+      moments;
+  </select>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from moments
+    where moment_id = #{momentId,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from moments
-    where user_id = #{userId,jdbcType=INTEGER}
+    where moment_id = #{momentId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.dumbo.server.entity.Moments">
-    insert into moments (user_id, record_time, description, 
+    insert into moments (user_id, nick_name,
+      avatar_url, record_time, description, 
       pictures_url, lat_bd09ll, lng_bd09ll, 
       address)
-    values (#{userId,jdbcType=INTEGER}, #{recordTime,jdbcType=TIMESTAMP}, #{description,jdbcType=VARCHAR}, 
+    values (#{userId,jdbcType=INTEGER}, #{nickName,jdbcType=VARCHAR},
+      #{avatarUrl,jdbcType=VARCHAR}, #{recordTime,jdbcType=TIMESTAMP}, #{description,jdbcType=VARCHAR}, 
       #{picturesUrl,jdbcType=VARCHAR}, #{latBd09ll,jdbcType=DOUBLE}, #{lngBd09ll,jdbcType=DOUBLE}, 
       #{address,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.dumbo.server.entity.Moments">
     insert into moments
     <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="momentId != null">
+        moment_id,
+      </if>
       <if test="userId != null">
         user_id,
+      </if>
+      <if test="nickName != null">
+        nick_name,
+      </if>
+      <if test="avatarUrl != null">
+        avatar_url,
       </if>
       <if test="recordTime != null">
         record_time,
@@ -54,8 +80,17 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="momentId != null">
+        #{momentId,jdbcType=INTEGER},
+      </if>
       <if test="userId != null">
         #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="nickName != null">
+        #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="avatarUrl != null">
+        #{avatarUrl,jdbcType=VARCHAR},
       </if>
       <if test="recordTime != null">
         #{recordTime,jdbcType=TIMESTAMP},
@@ -80,6 +115,15 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.dumbo.server.entity.Moments">
     update moments
     <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="nickName != null">
+        nick_name = #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="avatarUrl != null">
+        avatar_url = #{avatarUrl,jdbcType=VARCHAR},
+      </if>
       <if test="recordTime != null">
         record_time = #{recordTime,jdbcType=TIMESTAMP},
       </if>
@@ -99,16 +143,19 @@
         address = #{address,jdbcType=VARCHAR},
       </if>
     </set>
-    where user_id = #{userId,jdbcType=INTEGER}
+    where moment_id = #{momentId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.dumbo.server.entity.Moments">
     update moments
-    set record_time = #{recordTime,jdbcType=TIMESTAMP},
+    set user_id = #{userId,jdbcType=INTEGER},
+      nick_name = #{nickName,jdbcType=VARCHAR},
+      avatar_url = #{avatarUrl,jdbcType=VARCHAR},
+      record_time = #{recordTime,jdbcType=TIMESTAMP},
       description = #{description,jdbcType=VARCHAR},
       pictures_url = #{picturesUrl,jdbcType=VARCHAR},
       lat_bd09ll = #{latBd09ll,jdbcType=DOUBLE},
       lng_bd09ll = #{lngBd09ll,jdbcType=DOUBLE},
       address = #{address,jdbcType=VARCHAR}
-    where user_id = #{userId,jdbcType=INTEGER}
+    where moment_id = #{momentId,jdbcType=INTEGER}
   </update>
 </mapper>

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dumbo.server.dao.SitesDao">
     <resultMap id="BaseResultMap" type="com.dumbo.server.entity.Sites">
-        <id column="site" jdbcType="INTEGER" property="site" />
+        <id column="site_id" jdbcType="INTEGER" property="siteId" />
         <result column="lat_bd09ll" jdbcType="DOUBLE" property="latBd09ll" />
         <result column="lng_bd09ll" jdbcType="DOUBLE" property="lngBd09ll" />
         <result column="work_state" jdbcType="VARCHAR" property="workState" />
@@ -10,7 +10,7 @@
     </resultMap>
 
     <sql id="Base_Column_List">
-        site, lat_bd09ll, lng_bd09ll,work_state,description
+        site_id, lat_bd09ll, lng_bd09ll,work_state,description
     </sql>
 
     <!--增-->
@@ -23,12 +23,12 @@
     </insert>
 
     <!--删-->
-    <delete id="deleteBySite" parameterType="java.lang.Integer">
+    <delete id="deleteBySiteId" parameterType="java.lang.Integer">
         DELETE
         FROM
             sites
         WHERE
-            site = #{site,jdbcType=INTEGER}
+            site_id = #{siteId,jdbcType=INTEGER}
     </delete>
 
     <!--改-->
@@ -41,22 +41,25 @@
           work_state = #{workState,jdbcType=VARCHAR},
           description = #{description,jdbcType=VARCHAR}
         WHERE
-          site = #{site,jdbcType=INTEGER}
+          site_id = #{siteId,jdbcType=INTEGER}
     </update>
 
     <!--查某一监测点信息-->
-    <select id="selectBySite" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <select id="selectBySiteId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         SELECT
         <include refid = "Base_Column_List" />
         FROM
         sites
         WHERE
-        site = #{site,jdbcType=INTEGER}
+        site_id = #{siteId,jdbcType=INTEGER}
     </select>
 
     <!--查所有检测点信息-->
     <select id="selectAllSites" resultMap="BaseResultMap">
-        SELECT * FROM sites;
+        SELECT
+          <include refid = "Base_Column_List" />
+        FROM
+          sites;
     </select>
 
 </mapper>

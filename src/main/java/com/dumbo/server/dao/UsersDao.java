@@ -18,6 +18,6 @@ public interface UsersDao {
     Users selectByPhone(String phone);
 
     /*通过用户ID查询*/
-    Users selectById(int id);
+    Users selectByUserId(int userId);
 
 }

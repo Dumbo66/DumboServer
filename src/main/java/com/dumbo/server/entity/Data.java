@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import java.util.Date;
 
 /**
- * --数据实体类--
+ * --定点监测数据实体类--
  *
  * Created by Dumbo on 2018/4/22
  **/
@@ -15,7 +15,7 @@ public class Data {
     //记录时间
     private Date recordTime;
     //监测点号
-    private int site;
+    private int siteId;
     //PH
     private float ph;
     //温度
@@ -33,8 +33,8 @@ public class Data {
         return recordTime;
     }
 
-    public int getSite() {
-        return site;
+    public int getSiteId() {
+        return siteId;
     }
 
     public float getPh() {

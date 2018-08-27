@@ -11,13 +11,13 @@ public interface SitesDao {
     int insert(Sites sites);
 
     /*删*/
-    int deleteBySite(int site);
+    int deleteBySiteId(int siteId);
 
     /*改*/
     int update(Sites sites);
 
     /*查一条记录*/
-    Sites selectBySite(int site);
+    Sites selectBySiteId(int siteId);
 
     /*查所有记录*/
     List<Sites> selectAllSites();

@@ -21,6 +21,13 @@ mybatis:
 #  configuration:
 #    cache-enabled: true  #开启MyBatis的二级缓存
 
+###################### PageHelper配置 ########################
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+
 ######################### Redis配置 ###########################
 redis:
   #数据库索引
@@ -43,3 +50,13 @@ redis:
     max-wait: -1
     #连接超时时间
     timeout: 5000
+
+######################### Mqtt配置 ###########################
+mqtt:
+  broker:
+    serverUri: tcp://39.106.170.35:61613
+    username: admin
+    password: password
+  inboundclientId: 0
+  qos: 1
+  completionTimeout: 5000

@@ -1,5 +1,6 @@
 package com.dumbo.server;
 
+import com.dumbo.server.util.EncryptUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -11,10 +12,8 @@ public class ServerApplicationTests {
 
     @Test
     public void test() {
-      String str="&/pictures/img_20180805_104511_1166.jpg&/pictures/img_20180805_104511_3660.jpg";
-        String[] ss=str.split("&");
-        for (int i=0;i<ss.length ;i++){
-            System.out.println(ss[i]);
-        }
+        String str="90977299zhux";
+        System.out.println(EncryptUtil.getMD5Str(str));
+        System.out.println(EncryptUtil.encrypt(EncryptUtil.getMD5Str(str)));
     }
 }

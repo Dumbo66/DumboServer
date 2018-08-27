@@ -39,7 +39,7 @@ public class MyShiroRealm extends AuthorizingRealm {
         System.out.println("userId="+userId);
 
         //到数据库查找用户是否存在
-        Users users =usersDao.selectById(userId);
+        Users users =usersDao.selectByUserId(userId);
         if(users !=null){
 //            if()
         }

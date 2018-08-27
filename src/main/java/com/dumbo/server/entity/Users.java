@@ -17,10 +17,10 @@ public class Users {
     private String phone;
 
     @ApiModelProperty(hidden = true)
-    private Integer id;
+    private Integer userId;
 
     @ApiModelProperty(value = "用户姓名",allowEmptyValue = true)
-    private String nick_name;
+    private String nickName;
 
     @ApiModelProperty(value = "用户性别（只能：男/女/保密）",allowEmptyValue = true)
     private String sex;
@@ -39,20 +39,40 @@ public class Users {
         return phone;
     }
 
-    public Integer getId() {
-        return id;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
-    public String getNick_name() {
-        return nick_name;
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
+    public String getNickName() {
+        return nickName;
+    }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
     }
 
     public String getSex() {
         return sex;
     }
 
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
     public Date getBirthday() {
         return birthday;
+    }
+
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
     }
 
     public String getPassword() {
@@ -65,5 +85,9 @@ public class Users {
 
     public String getIconUrl() {
         return iconUrl;
+    }
+
+    public void setIconUrl(String iconUrl) {
+        this.iconUrl = iconUrl;
     }
 }
