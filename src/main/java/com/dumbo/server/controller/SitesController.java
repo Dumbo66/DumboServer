@@ -33,7 +33,7 @@ public class SitesController {
 
     @DeleteMapping("/sites")
     @ApiOperation("删除一条监测点信息")
-    public Response deleteSite(@RequestParam int siteId){
+    public Response deleteSite(@RequestParam String siteId){
         return sitesServiceImpl.deleteSite(siteId);
     }
 
@@ -45,7 +45,7 @@ public class SitesController {
 
     @GetMapping("/sites")
     @ApiOperation("查询一条监测点信息")
-    public Response selectSite(@RequestParam int siteId){
+    public Response selectSite(@RequestParam String siteId){
         return sitesServiceImpl.selectSite(siteId);
     }
 

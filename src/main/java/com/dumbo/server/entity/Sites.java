@@ -1,35 +1,66 @@
 package com.dumbo.server.entity;
 
-import io.swagger.annotations.ApiModelProperty;
-
-/**
- * --监测点实体类--
- *
- * Created by Dumbo on 2018/4/22
- **/
-
 public class Sites {
-    @ApiModelProperty(value = "监测点号")
-    private int siteId;
+    private String siteId;
 
-    @ApiModelProperty(value = "纬度（如39.933527）<bd09ll坐标系>")
-    private double latBd09ll;
+    private Double latWgs84;
 
-    @ApiModelProperty(value = "经度（如116.309408）<bd09ll坐标系>")
-    private double lngBd09ll;
+    private String latType;
 
-    @ApiModelProperty(value = "工作状态（“正常”/“故障”）")
+    private Double lngWgs84;
+
+    private String lngType;
+
     private String workState;
 
-    @ApiModelProperty(value = "工作状态详细描述")
     private String description;
+
+    public String getSiteId() {
+        return siteId;
+    }
+
+    public void setSiteId(String siteId) {
+        this.siteId = siteId == null ? null : siteId.trim();
+    }
+
+    public Double getLatWgs84() {
+        return latWgs84;
+    }
+
+    public void setLatWgs84(Double latWgs84) {
+        this.latWgs84 = latWgs84;
+    }
+
+    public String getLatType() {
+        return latType;
+    }
+
+    public void setLatType(String latType) {
+        this.latType = latType == null ? null : latType.trim();
+    }
+
+    public Double getLngWgs84() {
+        return lngWgs84;
+    }
+
+    public void setLngWgs84(Double lngWgs84) {
+        this.lngWgs84 = lngWgs84;
+    }
+
+    public String getLngType() {
+        return lngType;
+    }
+
+    public void setLngType(String lngType) {
+        this.lngType = lngType == null ? null : lngType.trim();
+    }
 
     public String getWorkState() {
         return workState;
     }
 
     public void setWorkState(String workState) {
-        this.workState = workState;
+        this.workState = workState == null ? null : workState.trim();
     }
 
     public String getDescription() {
@@ -37,18 +68,6 @@ public class Sites {
     }
 
     public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public int getSiteId() {
-        return siteId;
-    }
-
-    public double getLatBd09ll() {
-        return latBd09ll;
-    }
-
-    public double getLngBd09ll() {
-        return lngBd09ll;
+        this.description = description == null ? null : description.trim();
     }
 }

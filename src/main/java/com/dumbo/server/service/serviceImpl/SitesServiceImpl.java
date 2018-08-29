@@ -30,22 +30,22 @@ public class SitesServiceImpl implements SitesService {
 
     /*删*/
     @Override
-    public Response deleteSite(int siteId){
-        sitesDao.deleteBySiteId(siteId);
+    public Response deleteSite(String siteId){
+        sitesDao.deleteByPrimaryKey(siteId);
         return ResponseUtil.ok("删除监测点成功");
     }
 
     /*改*/
     @Override
     public Response updateSite(Sites sites){
-        sitesDao.update(sites);
+        sitesDao.updateByPrimaryKey(sites);
         return ResponseUtil.ok("修改监测点信息成功");
     }
 
     /*查询一条记录*/
     @Override
-    public Response selectSite(int siteId){
-        return ResponseUtil.ok("查询监测点"+siteId+"信息成功",sitesDao.selectBySiteId(siteId));
+    public Response selectSite(String siteId){
+        return ResponseUtil.ok("查询监测点"+siteId+"信息成功",sitesDao.selectByPrimaryKey(siteId));
     }
 
     /*查询所有记录*/

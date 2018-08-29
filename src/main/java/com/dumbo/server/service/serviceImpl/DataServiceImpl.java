@@ -1,6 +1,6 @@
 package com.dumbo.server.service.serviceImpl;
 
-import com.dumbo.server.dao.DataDao;
+import com.dumbo.server.dao.WaterDataDao;
 import com.dumbo.server.dao.MobileDataDao;
 import com.dumbo.server.entity.MobileData;
 import com.dumbo.server.entity.Response;
@@ -8,8 +8,6 @@ import com.dumbo.server.service.DataService;
 import com.dumbo.server.util.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.Date;
 
 /**
  * --监测数据业务实现类--
@@ -19,38 +17,38 @@ import java.util.Date;
 
 @Service
 public class DataServiceImpl implements DataService {
-    private final DataDao dataDao;
+    private final WaterDataDao waterDataDao;
     private final MobileDataDao mobileDataDao;
 
     @Autowired
-    public DataServiceImpl(DataDao dataDao,MobileDataDao mobileDataDao) {
-        this.dataDao = dataDao;
+    public DataServiceImpl(WaterDataDao waterDataDao, MobileDataDao mobileDataDao) {
+        this.waterDataDao = waterDataDao;
         this.mobileDataDao=mobileDataDao;
     }
 
     /*****************************定点监测数据*******************************/
     /*查询某站点最新定点监测数据*/
     @Override
-    public Response selectLatestData(int siteId){
-        return ResponseUtil.ok("请求数据成功！",dataDao.selectLatestData(siteId));
+    public Response selectLatestData(String siteId){
+        return ResponseUtil.ok("请求数据成功！", waterDataDao.selectLatestData(siteId));
     }
 
     /*查询所有站点最新定点监测数据*/
     @Override
     public Response selectAllLatestData(int count){
-        return ResponseUtil.ok("请求数据成功！",dataDao.selectAllLatestData(count));
+        return ResponseUtil.ok("请求数据成功！", waterDataDao.selectAllLatestData(count));
     }
 
     /*查询某站点最近一小时平均定点监测数据*/
     @Override
-    public Response selectPreOneHourDataAvg(int siteId){
-        return  ResponseUtil.ok("请求数据成功！",dataDao.selectPreOneHourDataAvg(siteId));
+    public Response selectPreOneHourDataAvg(String siteId){
+        return  ResponseUtil.ok("请求数据成功！", waterDataDao.selectPreOneHourDataAvg(siteId));
     }
 
     /*查询某站点某天每小时平均定点监测数据*/
     @Override
-    public Response selectPerHourDataAvg(int siteId, String date){
-        return  ResponseUtil.ok("请求数据成功！",dataDao.selectPerHourDataAvg(siteId,date));
+    public Response selectPerHourDataAvg(String siteId, String date){
+        return  ResponseUtil.ok("请求数据成功！", waterDataDao.selectPerHourDataAvg(siteId,date));
     }
 
     /*****************************移动监测数据*******************************/

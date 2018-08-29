@@ -7,17 +7,17 @@ import java.util.List;
 
 @Mapper
 public interface SitesDao {
-    /*增*/
-    int insert(Sites sites);
+    int deleteByPrimaryKey(String siteId);
 
-    /*删*/
-    int deleteBySiteId(int siteId);
+    int insert(Sites record);
 
-    /*改*/
-    int update(Sites sites);
+    int insertSelective(Sites record);
 
-    /*查一条记录*/
-    Sites selectBySiteId(int siteId);
+    Sites selectByPrimaryKey(String siteId);
+
+    int updateByPrimaryKeySelective(Sites record);
+
+    int updateByPrimaryKey(Sites record);
 
     /*查所有记录*/
     List<Sites> selectAllSites();

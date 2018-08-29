@@ -14,13 +14,13 @@ public interface SitesService {
     public Response insertSite(Sites sites);
 
     /*删*/
-    public Response deleteSite(int siteId);
+    public Response deleteSite(String siteId);
 
     /*改*/
     public Response updateSite(Sites sites);
 
     /*查询一条记录*/
-    public Response selectSite(int siteId);
+    public Response selectSite(String siteId);
 
     /*查询所有记录*/
     public Response selectAllSites();

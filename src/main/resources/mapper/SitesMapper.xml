@@ -1,65 +1,124 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dumbo.server.dao.SitesDao">
-    <resultMap id="BaseResultMap" type="com.dumbo.server.entity.Sites">
-        <id column="site_id" jdbcType="INTEGER" property="siteId" />
-        <result column="lat_bd09ll" jdbcType="DOUBLE" property="latBd09ll" />
-        <result column="lng_bd09ll" jdbcType="DOUBLE" property="lngBd09ll" />
-        <result column="work_state" jdbcType="VARCHAR" property="workState" />
-        <result column="description" jdbcType="VARCHAR" property="description" />
-    </resultMap>
-
-    <sql id="Base_Column_List">
-        site_id, lat_bd09ll, lng_bd09ll,work_state,description
-    </sql>
-
-    <!--增-->
-    <insert id="insert" parameterType="com.dumbo.server.entity.Sites">
-        INSERT INTO
-          sites (lat_bd09ll, lng_bd09ll,work_state,description)
-        VALUES
-          (#{latBd09ll,jdbcType=DOUBLE}, #{lngBd09ll,jdbcType=DOUBLE},
-           #{workState,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR})
-    </insert>
-
-    <!--删-->
-    <delete id="deleteBySiteId" parameterType="java.lang.Integer">
-        DELETE
-        FROM
-            sites
-        WHERE
-            site_id = #{siteId,jdbcType=INTEGER}
-    </delete>
-
-    <!--改-->
-    <update id="update" parameterType="com.dumbo.server.entity.Sites">
-        UPDATE
-          sites
-        SET
-          lat_bd09ll = #{latBd09ll,jdbcType=DOUBLE},
-          lng_bd09ll = #{lngBd09ll,jdbcType=DOUBLE},
-          work_state = #{workState,jdbcType=VARCHAR},
-          description = #{description,jdbcType=VARCHAR}
-        WHERE
-          site_id = #{siteId,jdbcType=INTEGER}
-    </update>
-
-    <!--查某一监测点信息-->
-    <select id="selectBySiteId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-        SELECT
+  <resultMap id="BaseResultMap" type="com.dumbo.server.entity.Sites">
+    <id column="site_id" jdbcType="VARCHAR" property="siteId" />
+    <result column="lat_wgs84" jdbcType="DOUBLE" property="latWgs84" />
+    <result column="lat_type" jdbcType="CHAR" property="latType" />
+    <result column="lng_wgs84" jdbcType="DOUBLE" property="lngWgs84" />
+    <result column="lng_type" jdbcType="CHAR" property="lngType" />
+    <result column="work_state" jdbcType="CHAR" property="workState" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    site_id, lat_wgs84, lat_type, lng_wgs84, lng_type, work_state, description
+  </sql>
+  <!--查询所有-->
+  <select id="selectAllSites" resultMap="BaseResultMap">
+      SELECT
         <include refid = "Base_Column_List" />
-        FROM
-        sites
-        WHERE
-        site_id = #{siteId,jdbcType=INTEGER}
-    </select>
-
-    <!--查所有检测点信息-->
-    <select id="selectAllSites" resultMap="BaseResultMap">
-        SELECT
-          <include refid = "Base_Column_List" />
-        FROM
-          sites;
-    </select>
-
+      FROM
+        sites;
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sites
+    where site_id = #{siteId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from sites
+    where site_id = #{siteId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.dumbo.server.entity.Sites">
+    insert into sites (site_id, lat_wgs84, lat_type, 
+      lng_wgs84, lng_type, work_state, 
+      description)
+    values (#{siteId,jdbcType=VARCHAR}, #{latWgs84,jdbcType=DOUBLE}, #{latType,jdbcType=CHAR}, 
+      #{lngWgs84,jdbcType=DOUBLE}, #{lngType,jdbcType=CHAR}, #{workState,jdbcType=CHAR}, 
+      #{description,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dumbo.server.entity.Sites">
+    insert into sites
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="siteId != null">
+        site_id,
+      </if>
+      <if test="latWgs84 != null">
+        lat_wgs84,
+      </if>
+      <if test="latType != null">
+        lat_type,
+      </if>
+      <if test="lngWgs84 != null">
+        lng_wgs84,
+      </if>
+      <if test="lngType != null">
+        lng_type,
+      </if>
+      <if test="workState != null">
+        work_state,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="siteId != null">
+        #{siteId,jdbcType=VARCHAR},
+      </if>
+      <if test="latWgs84 != null">
+        #{latWgs84,jdbcType=DOUBLE},
+      </if>
+      <if test="latType != null">
+        #{latType,jdbcType=CHAR},
+      </if>
+      <if test="lngWgs84 != null">
+        #{lngWgs84,jdbcType=DOUBLE},
+      </if>
+      <if test="lngType != null">
+        #{lngType,jdbcType=CHAR},
+      </if>
+      <if test="workState != null">
+        #{workState,jdbcType=CHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dumbo.server.entity.Sites">
+    update sites
+    <set>
+      <if test="latWgs84 != null">
+        lat_wgs84 = #{latWgs84,jdbcType=DOUBLE},
+      </if>
+      <if test="latType != null">
+        lat_type = #{latType,jdbcType=CHAR},
+      </if>
+      <if test="lngWgs84 != null">
+        lng_wgs84 = #{lngWgs84,jdbcType=DOUBLE},
+      </if>
+      <if test="lngType != null">
+        lng_type = #{lngType,jdbcType=CHAR},
+      </if>
+      <if test="workState != null">
+        work_state = #{workState,jdbcType=CHAR},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where site_id = #{siteId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dumbo.server.entity.Sites">
+    update sites
+    set lat_wgs84 = #{latWgs84,jdbcType=DOUBLE},
+      lat_type = #{latType,jdbcType=CHAR},
+      lng_wgs84 = #{lngWgs84,jdbcType=DOUBLE},
+      lng_type = #{lngType,jdbcType=CHAR},
+      work_state = #{workState,jdbcType=CHAR},
+      description = #{description,jdbcType=VARCHAR}
+    where site_id = #{siteId,jdbcType=VARCHAR}
+  </update>
 </mapper>

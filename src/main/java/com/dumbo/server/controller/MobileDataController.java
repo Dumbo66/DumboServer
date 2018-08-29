@@ -9,49 +9,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * --监测数据控制类--
+ * --移动监测数据控制类
  *
- * Created by Dumbo on 2018/4/21
+ * Created by Dumbo on 2018/8/29
  **/
 
 @RestController
-@Api(tags = "监测数据接口")
-@RequestMapping("/api/v1")
-public class DataController {
+@Api(tags = "移动监测数据接口")
+@RequestMapping("/api/v1/data")
+public class MobileDataController {
 
     private final DataServiceImpl dataServiceImpl;
 
     @Autowired
-    public DataController(DataServiceImpl dataServiceImpl) {
+    public MobileDataController(DataServiceImpl dataServiceImpl) {
         this.dataServiceImpl = dataServiceImpl;
     }
 
-    /*****************************定点监测数据*******************************/
-    @GetMapping("/latest_data")
-    @ApiOperation("查询某站点最新定点监测数据")
-    public Response selectLatestData(@RequestParam int siteId){
-        return dataServiceImpl.selectLatestData(siteId);
-    }
-
-    @GetMapping("/all_latest_data")
-    @ApiOperation("查询多个站点最新定点监测数据")
-    public Response selectAllLatestData(@RequestParam int count){
-        return dataServiceImpl.selectAllLatestData(count);
-    }
-
-    @GetMapping("/pre_one_hour_data")
-    @ApiOperation("查询某站点最近一小时平均定点监测数据")
-    public Response selectPreOneHourDataAvg(@RequestParam int siteId){
-        return dataServiceImpl.selectPreOneHourDataAvg(siteId);
-    }
-
-    @GetMapping("/per_hour_data")
-    @ApiOperation("查询某站点某天每小时平均定点监测数据")
-    public Response selectPerHourDataAvg(@RequestParam int siteId, @RequestParam String date){
-        return dataServiceImpl.selectPerHourDataAvg(siteId,date);
-    }
-
-    /*****************************移动监测数据*******************************/
     @PostMapping("/mobile_data")
     @ApiOperation("增加移动监测数据")
     public Response insertMobileData(@RequestBody MobileData mobileData){

@@ -10,12 +10,12 @@ import java.util.Date;
  * Created by Dumbo on 2018/4/22
  **/
 
-public class Data {
+public class WaterData {
     @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm:ss")
     //记录时间
     private Date recordTime;
     //监测点号
-    private int siteId;
+    private String siteId;
     //PH
     private float ph;
     //温度
@@ -33,7 +33,7 @@ public class Data {
         return recordTime;
     }
 
-    public int getSiteId() {
+    public String getSiteId() {
         return siteId;
     }
 

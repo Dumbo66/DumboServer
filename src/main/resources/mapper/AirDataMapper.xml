@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dumbo.server.dao.AirDataDao">
+  <resultMap id="BaseResultMap" type="com.dumbo.server.entity.AirData">
+    <id column="data_id" jdbcType="INTEGER" property="dataId" />
+    <result column="site_id" jdbcType="VARCHAR" property="siteId" />
+    <result column="record_time" jdbcType="TIMESTAMP" property="recordTime" />
+    <result column="air_temperature" jdbcType="REAL" property="airTemperature" />
+    <result column="air_humid" jdbcType="REAL" property="airHumid" />
+    <result column="light_intensity" jdbcType="REAL" property="lightIntensity" />
+    <result column="pm10" jdbcType="REAL" property="pm10" />
+    <result column="pm2_5" jdbcType="REAL" property="pm25" />
+    <result column="voc" jdbcType="REAL" property="voc" />
+    <result column="co" jdbcType="REAL" property="co" />
+    <result column="co2" jdbcType="REAL" property="co2" />
+    <result column="no2" jdbcType="REAL" property="no2" />
+    <result column="so2" jdbcType="REAL" property="so2" />
+    <result column="o3" jdbcType="REAL" property="o3" />
+    <result column="dust_concentration" jdbcType="REAL" property="dustConcentration" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    data_id, site_id, record_time, air_temperature, air_humid, light_intensity, pm10, 
+    pm2_5, voc, co, co2, no2, so2, o3, dust_concentration
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from air_data
+    where data_id = #{dataId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from air_data
+    where data_id = #{dataId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dumbo.server.entity.AirData">
+    insert into air_data (data_id, site_id, record_time, 
+      air_temperature, air_humid, light_intensity, 
+      pm10, pm2_5, voc, co, 
+      co2, no2, so2, o3, 
+      dust_concentration)
+    values (#{dataId,jdbcType=INTEGER}, #{siteId,jdbcType=VARCHAR}, #{recordTime,jdbcType=TIMESTAMP}, 
+      #{airTemperature,jdbcType=REAL}, #{airHumid,jdbcType=REAL}, #{lightIntensity,jdbcType=REAL}, 
+      #{pm10,jdbcType=REAL}, #{pm25,jdbcType=REAL}, #{voc,jdbcType=REAL}, #{co,jdbcType=REAL}, 
+      #{co2,jdbcType=REAL}, #{no2,jdbcType=REAL}, #{so2,jdbcType=REAL}, #{o3,jdbcType=REAL}, 
+      #{dustConcentration,jdbcType=REAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dumbo.server.entity.AirData">
+    insert into air_data
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="dataId != null">
+        data_id,
+      </if>
+      <if test="siteId != null">
+        site_id,
+      </if>
+      <if test="recordTime != null">
+        record_time,
+      </if>
+      <if test="airTemperature != null">
+        air_temperature,
+      </if>
+      <if test="airHumid != null">
+        air_humid,
+      </if>
+      <if test="lightIntensity != null">
+        light_intensity,
+      </if>
+      <if test="pm10 != null">
+        pm10,
+      </if>
+      <if test="pm25 != null">
+        pm2_5,
+      </if>
+      <if test="voc != null">
+        voc,
+      </if>
+      <if test="co != null">
+        co,
+      </if>
+      <if test="co2 != null">
+        co2,
+      </if>
+      <if test="no2 != null">
+        no2,
+      </if>
+      <if test="so2 != null">
+        so2,
+      </if>
+      <if test="o3 != null">
+        o3,
+      </if>
+      <if test="dustConcentration != null">
+        dust_concentration,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="dataId != null">
+        #{dataId,jdbcType=INTEGER},
+      </if>
+      <if test="siteId != null">
+        #{siteId,jdbcType=VARCHAR},
+      </if>
+      <if test="recordTime != null">
+        #{recordTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="airTemperature != null">
+        #{airTemperature,jdbcType=REAL},
+      </if>
+      <if test="airHumid != null">
+        #{airHumid,jdbcType=REAL},
+      </if>
+      <if test="lightIntensity != null">
+        #{lightIntensity,jdbcType=REAL},
+      </if>
+      <if test="pm10 != null">
+        #{pm10,jdbcType=REAL},
+      </if>
+      <if test="pm25 != null">
+        #{pm25,jdbcType=REAL},
+      </if>
+      <if test="voc != null">
+        #{voc,jdbcType=REAL},
+      </if>
+      <if test="co != null">
+        #{co,jdbcType=REAL},
+      </if>
+      <if test="co2 != null">
+        #{co2,jdbcType=REAL},
+      </if>
+      <if test="no2 != null">
+        #{no2,jdbcType=REAL},
+      </if>
+      <if test="so2 != null">
+        #{so2,jdbcType=REAL},
+      </if>
+      <if test="o3 != null">
+        #{o3,jdbcType=REAL},
+      </if>
+      <if test="dustConcentration != null">
+        #{dustConcentration,jdbcType=REAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dumbo.server.entity.AirData">
+    update air_data
+    <set>
+      <if test="siteId != null">
+        site_id = #{siteId,jdbcType=VARCHAR},
+      </if>
+      <if test="recordTime != null">
+        record_time = #{recordTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="airTemperature != null">
+        air_temperature = #{airTemperature,jdbcType=REAL},
+      </if>
+      <if test="airHumid != null">
+        air_humid = #{airHumid,jdbcType=REAL},
+      </if>
+      <if test="lightIntensity != null">
+        light_intensity = #{lightIntensity,jdbcType=REAL},
+      </if>
+      <if test="pm10 != null">
+        pm10 = #{pm10,jdbcType=REAL},
+      </if>
+      <if test="pm25 != null">
+        pm2_5 = #{pm25,jdbcType=REAL},
+      </if>
+      <if test="voc != null">
+        voc = #{voc,jdbcType=REAL},
+      </if>
+      <if test="co != null">
+        co = #{co,jdbcType=REAL},
+      </if>
+      <if test="co2 != null">
+        co2 = #{co2,jdbcType=REAL},
+      </if>
+      <if test="no2 != null">
+        no2 = #{no2,jdbcType=REAL},
+      </if>
+      <if test="so2 != null">
+        so2 = #{so2,jdbcType=REAL},
+      </if>
+      <if test="o3 != null">
+        o3 = #{o3,jdbcType=REAL},
+      </if>
+      <if test="dustConcentration != null">
+        dust_concentration = #{dustConcentration,jdbcType=REAL},
+      </if>
+    </set>
+    where data_id = #{dataId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dumbo.server.entity.AirData">
+    update air_data
+    set site_id = #{siteId,jdbcType=VARCHAR},
+      record_time = #{recordTime,jdbcType=TIMESTAMP},
+      air_temperature = #{airTemperature,jdbcType=REAL},
+      air_humid = #{airHumid,jdbcType=REAL},
+      light_intensity = #{lightIntensity,jdbcType=REAL},
+      pm10 = #{pm10,jdbcType=REAL},
+      pm2_5 = #{pm25,jdbcType=REAL},
+      voc = #{voc,jdbcType=REAL},
+      co = #{co,jdbcType=REAL},
+      co2 = #{co2,jdbcType=REAL},
+      no2 = #{no2,jdbcType=REAL},
+      so2 = #{so2,jdbcType=REAL},
+      o3 = #{o3,jdbcType=REAL},
+      dust_concentration = #{dustConcentration,jdbcType=REAL}
+    where data_id = #{dataId,jdbcType=INTEGER}
+  </update>
+</mapper>

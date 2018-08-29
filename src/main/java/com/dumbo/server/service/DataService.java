@@ -13,16 +13,16 @@ import java.util.Date;
 
 public interface DataService {
     /*查询某站点最新定点监测数据*/
-    public Response selectLatestData(int siteId);
+    public Response selectLatestData(String siteId);
 
     /*查询所有站点最新定点监测数据*/
     public Response selectAllLatestData(int count);
 
     /*查询某站点最近一小时平均定点监测数据*/
-    public Response selectPreOneHourDataAvg(int siteId);
+    public Response selectPreOneHourDataAvg(String siteId);
 
     /*查询某站点某天每小时平均定点监测数据*/
-    public Response selectPerHourDataAvg(int siteId, String date);
+    public Response selectPerHourDataAvg(String siteId, String date);
 
 
     /*增加移动监测数据*/

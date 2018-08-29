@@ -163,6 +163,14 @@
             <artifactId>spring-integration-mqtt</artifactId>
         </dependency>
 
+        <!-- 引入JsonPath -->
+        <dependency>
+            <groupId>com.jayway.jsonpath</groupId>
+            <artifactId>json-path</artifactId>
+            <version>2.2.0</version>
+        </dependency>
+
+
     </dependencies>
 
     <build>
