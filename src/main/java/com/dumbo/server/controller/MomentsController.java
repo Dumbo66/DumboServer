@@ -37,5 +37,4 @@ public class MomentsController {
     private Response getMoments(@RequestParam int pageNum,@RequestParam int pageSize){
         return momentsServiceImpl.getMoments(pageNum,pageSize);
     }
-
 }

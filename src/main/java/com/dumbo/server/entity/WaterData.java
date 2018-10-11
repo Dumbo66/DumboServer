@@ -11,8 +11,8 @@ import java.util.Date;
  **/
 
 public class WaterData {
-    @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm:ss")
     //记录时间
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date recordTime;
     //监测点号
     private String siteId;
@@ -73,5 +73,37 @@ public class WaterData {
             grade='F';
         }
         return grade;
+    }
+
+    public void setRecordTime(Date recordTime) {
+        this.recordTime = recordTime;
+    }
+
+    public void setSiteId(String siteId) {
+        this.siteId = siteId;
+    }
+
+    public void setPh(float ph) {
+        this.ph = ph;
+    }
+
+    public void setTemperature(float temperature) {
+        this.temperature = temperature;
+    }
+
+    public void setDissolvedOxygen(float dissolvedOxygen) {
+        this.dissolvedOxygen = dissolvedOxygen;
+    }
+
+    public void setConductivity(float conductivity) {
+        this.conductivity = conductivity;
+    }
+
+    public void setTurbidity(float turbidity) {
+        this.turbidity = turbidity;
+    }
+
+    public void setGrade(char grade) {
+        this.grade = grade;
     }
 }

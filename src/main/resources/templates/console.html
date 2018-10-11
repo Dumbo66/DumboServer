@@ -1,14 +1,23 @@
-<!doctype html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
-<head th:replace="common::header('控制台')">
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- 以下3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <title>控制台</title>
+
+    <!-- jquery -->
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- bootstrap -->
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
 <body>
-    <!-- 导航栏 -->
-    <div th:include="common::nav"></div>
+<!--顶部导航栏-->
+<div th:include="common::top_nav"></div>
 
-    <h1>控制台</h1>
-
-    <!--Footer-->
-    <div th:include="common::footer"></div>
 </body>
 </html>

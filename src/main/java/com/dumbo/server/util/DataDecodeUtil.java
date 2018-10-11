@@ -23,21 +23,21 @@ public class DataDecodeUtil {
 		System.out.println("crcStr="+crcStr);
 
 		//****************节点号解析*******************
-		String siteIdStr=headStr.substring(0,2);
-		int siteId=Integer.valueOf(siteIdStr,16);
+		String pointIdStr=headStr.substring(0,2);
+		int pointId=Integer.valueOf(pointIdStr,16);
 
 		System.out.println("----------节点号解析----------");
-		System.out.println("siteId="+siteId);
+		System.out.println("pointId="+pointId);
 
 		//****************水质监测数据解析******************
-		String temStr=waterDataStr.substring(0,4);//温度Str
+		String waterTemStr=waterDataStr.substring(0,4);//温度Str
 		String phStr=waterDataStr.substring(4,8);//PH Str
 		String dioStr=waterDataStr.substring(8,12);//溶氧Str
 		String turStr=waterDataStr.substring(12,16);//浊度Str
 		String conStr=waterDataStr.substring(16,20);//电导率Str
 		String conJStr=waterDataStr.substring(20,24);//电导率Str
 
-		float tem=(float) (decodeHex(temStr)/100.0);//温度
+		float waterTem=(float) (decodeHex(waterTemStr)/100.0);//温度
 		float ph=(float) (decodeHex(phStr)/100.0);//PH
 		float dio=(float) (decodeHex(dioStr)/100.0);//溶氧
 		float tur=(float) (decodeHex(turStr)/10.0);//浊度
@@ -61,7 +61,7 @@ public class DataDecodeUtil {
 		}
 
 		System.out.println("---------水质监测数据解析-----------");
-		System.out.println("tem="+tem);
+		System.out.println("waterTem="+waterTem);
 		System.out.println("ph="+ph);
 		System.out.println("dio="+dio);
 		System.out.println("tur="+tur);
@@ -75,9 +75,32 @@ public class DataDecodeUtil {
 		String COStr=airDataStr.substring(16,20);//COStr
 		String O3Str=airDataStr.substring(20,24);//O3CStr
 		String PM25Str=airDataStr.substring(24,28);//PM25Str
-		String PM10VOCStr=airDataStr.substring(28,32);//PM10Str
+		String PM10Str=airDataStr.substring(28,32);//PM10Str
 		String airTemStr=airDataStr.substring(32,36);//airTemStr
 		String airHumidStr=airDataStr.substring(36,40);//airHumidStr
+
+		float VOC=(float) (decodeHex(VOCStr)/100.0);
+		float CO2=(float) (decodeHex(CO2Str)/100.0);
+		float SO2=(float) (decodeHex(SO2Str)/100.0);
+		float NO2=(float) (decodeHex(NO2Str)/100.0);
+		float CO=(float) (decodeHex(COStr)/100.0);
+		float O3=(float) (decodeHex(O3Str)/100.0);
+		float PM25=(float) (decodeHex(PM25Str)/100.0);
+		float PM10=(float) (decodeHex(PM10Str)/100.0);
+		float airTem=(float) (decodeHex(airTemStr)/100.0);
+		float airHumid=(float) (decodeHex(airHumidStr)/100.0);
+
+		System.out.println("---------空气质量监测数据解析-----------");
+		System.out.println("VOC="+VOC);
+		System.out.println("CO2="+CO2);
+		System.out.println("SO2="+SO2);
+		System.out.println("NO2="+NO2);
+		System.out.println("CO="+CO);
+		System.out.println("O3="+O3);
+		System.out.println("PM25="+PM25);
+		System.out.println("PM10="+PM10);
+		System.out.println("airTem="+airTem);
+		System.out.println("airHumid="+airHumid);
 
 		//******************经纬度解析********************
 		String latStr=latLngStr.substring(0,12);
@@ -176,22 +199,34 @@ public class DataDecodeUtil {
 		}
 		System.out.println("lngWGS84="+lngWGS84);
 
-		map.put("siteId",siteId);
-		map.put("tem",tem);
+		map.put("point_id",pointId);
+
+		map.put("water_tem",waterTem);
 		map.put("dio",dio);
 		map.put("tur",tur);
 		map.put("ph",ph);
 		map.put("con",con);
+
+		map.put("VOC",VOC);
+		map.put("CO2",CO2);
+		map.put("SO2",SO2);
+		map.put("NO2",NO2);
+		map.put("CO",CO);
+		map.put("O3",O3);
+		map.put("PM25",PM25);
+		map.put("PM10",PM10);
+		map.put("air_tem",airTem);
+		map.put("air_humid",airHumid);
 
 		return map;
 	}
 
 	/*将4位十六进制分为高八位和低八位分别转为十进制i1和i2后，返回i1*100+i2*/
 	private static int decodeHex(String hex){
-		String tem1=hex.substring(0,2);
-		String tem2=hex.substring(2,4);
-		int i1=Integer.valueOf(tem1,16);
-		int i2=Integer.valueOf(tem2,16);
-		return i1*100+i2;
+//		String tem1=hex.substring(0,2);
+//		String tem2=hex.substring(2,4);
+//		int i1=Integer.valueOf(tem1,16);
+//		int i2=Integer.valueOf(tem2,16);
+		return Integer.valueOf(hex,16);
 	}
 }

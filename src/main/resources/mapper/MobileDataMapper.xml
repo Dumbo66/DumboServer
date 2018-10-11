@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dumbo.server.dao.MobileDataDao">
   <resultMap id="BaseResultMap" type="com.dumbo.server.entity.MobileData">
     <id column="record_time" jdbcType="TIMESTAMP" property="recordTime" />
@@ -13,7 +14,7 @@
   </resultMap>
 
   <sql id="Base_Column_List">
-    record_time, lat_bd09ll, lng_bd09ll, ph, temperature, dissolved_oxygen, conductivity, 
+    record_time, lat_bd09ll, lng_bd09ll, ph, temperature, dissolved_oxygen, conductivity,
     turbidity
   </sql>
 

@@ -1,12 +1,14 @@
 package com.dumbo.server.controller;
 
-import com.dumbo.server.entity.MobileData;
 import com.dumbo.server.entity.Response;
-import com.dumbo.server.service.serviceImpl.DataServiceImpl;
+import com.dumbo.server.entity.WaterData;
+import com.dumbo.server.service.serviceImpl.WaterDataServiceImpl;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * --监测数据控制类--
@@ -16,13 +18,13 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @Api(tags = "水质监测数据接口")
-@RequestMapping("/api/v1/data")
+@RequestMapping("/api/v1")
 public class WaterDataController {
 
-    private final DataServiceImpl dataServiceImpl;
+    private final WaterDataServiceImpl dataServiceImpl;
 
     @Autowired
-    public WaterDataController(DataServiceImpl dataServiceImpl) {
+    public WaterDataController(WaterDataServiceImpl dataServiceImpl) {
         this.dataServiceImpl = dataServiceImpl;
     }
 
@@ -32,8 +34,14 @@ public class WaterDataController {
         return dataServiceImpl.selectLatestData(siteId);
     }
 
+    @GetMapping("/all_water_data")
+    @ApiOperation("查询所有水质监测数据")
+    public List<WaterData> selectAllData(){
+        return dataServiceImpl.selectAllData();
+    }
+
     @GetMapping("/all_latest_water_data")
-    @ApiOperation("查询多个站点最新睡姿监测数据")
+    @ApiOperation("查询多个站点最新水质监测数据")
     public Response selectAllLatestData(@RequestParam int count){
         return dataServiceImpl.selectAllLatestData(count);
     }

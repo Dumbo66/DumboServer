@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- 以下3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>原始数据</title>
+
+    <!-- jquery -->
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- bootstrap -->
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="assets/bootstrap-table/src/bootstrap-table.css">
+    <script src="assets/bootstrap-table/src/bootstrap-table.js"></script>
+    <script src="assets/bootstrap-table/src/extensions/export/bootstrap-table-export.js"></script>
+    <script type="text/javascript" src="js/table-export.js"></script>
+
+    <link href="css/service.css" rel="stylesheet">
+</head>
+<body>
+<!--顶部导航栏-->
+<div th:include="common::top_nav"></div>
+
+<!--左侧导航栏-->
+<div th:include="service-common::left_nav"></div>
+
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <div id="toolbar">
+        <select class="form-control">
+            <option value="">导出当前页</option>
+            <option value="all">导出所有</option>
+            <option value="selected">导出选中</option>
+        </select>
+    </div>
+    <table id="table"
+           data-toggle="table"
+           data-height="550"
+           data-id-field="id"
+           data-toolbar="#toolbar"
+           data-search="true"
+           data-show-refresh="true"
+           data-show-toggle="true"
+           data-show-columns="true"
+           data-show-export="true"
+           data-striped="true"
+           data-show-pagination-switch="true"
+           data-pagination="true"
+           data-page-size="100"
+           data-page-list="[50, 100, 200, 300, ALL]"
+           data-row-style="rowStyle"
+           data-method="get"
+           data-content-type="application/json"
+           data-data-type="json"
+           data-url="http://localhost/api/v1/all_water_data">
+        <thead>
+        <tr>
+            <th data-field="siteId" class="col-md-2">监测点号</th>
+            <th data-field="recordTime" class="col-md-2">监测时间</th>
+            <th data-field="ph" class="col-md-2">pH</th>
+            <th data-field="temperature" class="col-md-2">温度（℃）</th>
+            <th data-field="dissolvedOxygen" class="col-md-2">溶氧（mg/L）</th>
+            <th data-field="conductivity" class="col-md-2">电导率（μS/cm）</th>
+            <th data-field="turbidity" class="col-md-2">浊度（NTU）</th>
+        </tr>
+        </thead>
+    </table>
+</div>
+
+<script>
+    var $table = $('#table');
+    $(function () {
+        $('#toolbar').find('select').change(function () {
+            $table.bootstrapTable('destroy').bootstrapTable({
+                exportDataType: $(this).val()
+            });
+        });
+    })
+</script>
+
+</body>
+</html>

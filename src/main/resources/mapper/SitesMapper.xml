@@ -31,10 +31,10 @@
     where site_id = #{siteId,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.dumbo.server.entity.Sites">
-    insert into sites (site_id, lat_wgs84, lat_type, 
+    insert into sites (site_id, lat_wgs84, lat_type,
       lng_wgs84, lng_type, work_state, 
       description)
-    values (#{siteId,jdbcType=VARCHAR}, #{latWgs84,jdbcType=DOUBLE}, #{latType,jdbcType=CHAR}, 
+    values (#{siteId,jdbcType=VARCHAR}, #{latWgs84,jdbcType=DOUBLE}, #{latType,jdbcType=CHAR},
       #{lngWgs84,jdbcType=DOUBLE}, #{lngType,jdbcType=CHAR}, #{workState,jdbcType=CHAR}, 
       #{description,jdbcType=VARCHAR})
   </insert>
@@ -65,7 +65,7 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="siteId != null">
-        #{siteId,jdbcType=VARCHAR},
+        #{site_id,jdbcType=VARCHAR},
       </if>
       <if test="latWgs84 != null">
         #{latWgs84,jdbcType=DOUBLE},

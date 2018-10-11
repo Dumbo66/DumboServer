@@ -11,13 +11,13 @@ import org.springframework.cache.annotation.EnableCaching;
  *  --工程启动类--
  *
  *  导出war包时修改启动类，继承 SpringBootServletInitializer 并重写 configure 方法
- * Created by Dumbo on 2018/4/1
+ *  Created by Dumbo on 2018/4/1
  **/
 
 @SpringBootApplication  // 等同于@Configuration+@EnableAutoConfiguration+@ComponentScan
 @MapperScan("com.dumbo.server.dao") //扫描指定包下dao
 @EnableCaching  //开启缓存功能
-public class ServerApplication /*extends SpringBootServletInitializer*/ {
+public class ServerApplication /*extends SpringBootServletInitializer */{
 
     /*一般启动类*/
     public static void main(String[] args) {

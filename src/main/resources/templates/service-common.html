@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- 以下3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>服务首页</title>
+
+    <!-- jquery -->
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- bootstrap -->
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <link href="css/service.css" rel="stylesheet">
+</head>
+<body>
+<!--顶部导航栏-->
+<div th:include="common::top_nav"></div>
+
+<!--左侧导航栏-->
+<div th:fragment="left_nav">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-3 col-md-2 sidebar">
+                <ul class="nav nav-sidebar">
+                    <li class="active">
+                        <a href="service-index.html">
+                            <i class="glyphicon glyphicon-home"></i>
+                            首页
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/service-charts.html">
+                            <i class="glyphicon glyphicon-stats"></i>
+                            数据图表
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="glyphicon glyphicon-star"></i>
+                            哈哈哈哈
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/service-tables.html">
+                            <i class="glyphicon glyphicon-list-alt"></i>
+                            原始数据
+                        </a>
+                    </li>
+                </ul>
+                <ul class="nav nav-sidebar">
+                    <li>
+                        <a href="#">
+                            <i class="glyphicon glyphicon-star"></i>
+                            其他
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="glyphicon glyphicon-star"></i>
+                            其他
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="glyphicon glyphicon-star"></i>
+                            其他
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="glyphicon glyphicon-star"></i>
+                            其他
+                        </a>
+                    </li>
+                </ul>
+                <ul class="nav nav-sidebar">
+                    <li>
+                        <a href="#">
+                            <i class="glyphicon glyphicon-star"></i>
+                            其他
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <i class="glyphicon glyphicon-question-sign"></i>
+                            帮助
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <i class="glyphicon glyphicon-cog"></i>
+                            设置
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

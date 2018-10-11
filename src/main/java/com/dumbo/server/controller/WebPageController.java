@@ -1,5 +1,6 @@
 package com.dumbo.server.controller;
 
+import io.swagger.annotations.Api;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -8,34 +9,35 @@ import org.springframework.web.bind.annotation.RequestMapping;
  **/
 
 @Controller
+@Api(tags = "web页面跳转")
 public class WebPageController {
     @RequestMapping("/index.html")
     public String goIndex(){
         return "index";
     }
 
-    @RequestMapping("/me.html")
+    @RequestMapping("/about.html")
     public String goMe(){
-        return "me";
-    }
-
-    @RequestMapping("/console.html")
-    public String goConsole(){
-        return "console";
-    }
-
-    @RequestMapping("/service.html")
-    public String goService(){
-        return "service";
-    }
-
-    @RequestMapping("/app_install.html")
-    public String goAppInstall(){
-        return "app_install";
+        return "about";
     }
 
     @RequestMapping("/login.html")
     public String goLogin(){
         return "login";
+    }
+
+    @RequestMapping("/service-index.html")
+    public String goService(){
+        return "service-index";
+    }
+
+    @RequestMapping("/service-charts.html")
+    public String goServiceChart(){
+        return "service-charts";
+    }
+
+    @RequestMapping("/service-tables.html")
+    public String goServiceTable(){
+        return "service-tables";
     }
 }

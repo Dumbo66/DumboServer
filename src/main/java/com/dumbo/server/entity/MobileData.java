@@ -9,7 +9,7 @@ public class MobileData {
 
     private Double lngBd09ll;
 
-    @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date recordTime;
 
     private Float ph;

@@ -11,23 +11,19 @@ public interface AirDataDao {
 
     int insert(AirData record);
 
-    int insertSelective(AirData record);
-
     AirData selectByPrimaryKey(Integer dataId);
-
-    int updateByPrimaryKeySelective(AirData record);
 
     int updateByPrimaryKey(AirData record);
 
-    /*查询某站点最新定点监测数据*/
-    AirData selectLatestData (int siteId);
+    /*查询某站点最新空气质量监测数据*/
+    AirData selectLatestData (String siteId);
 
-    /*查询所有站点最新定点监测数据*/
+    /*查询所有站点最新空气质量监测数据*/
     List<AirData> selectAllLatestData(int count);
 
-    /*查询某站点最近一小时平均定点监测数据*/
-    AirData selectPreOneHourDataAvg(int siteId);
+    /*查询某站点最近一小时平均空气质量监测数据*/
+    AirData selectPreOneHourDataAvg(String siteId);
 
-    /*查询某站点某天每小时平均定点监测数据*/
-    List<AirData> selectPerHourDataAvg(@Param("siteId") int siteId, @Param("date") String date);
+    /*查询某站点某天每小时平均空气质量监测数据*/
+    List<AirData> selectPerHourDataAvg(@Param("siteId") String siteId, @Param("date") String date);
 }

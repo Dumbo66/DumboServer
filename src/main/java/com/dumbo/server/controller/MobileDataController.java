@@ -2,7 +2,8 @@ package com.dumbo.server.controller;
 
 import com.dumbo.server.entity.MobileData;
 import com.dumbo.server.entity.Response;
-import com.dumbo.server.service.serviceImpl.DataServiceImpl;
+import com.dumbo.server.service.serviceImpl.MobileDataServiceImpl;
+import com.dumbo.server.service.serviceImpl.WaterDataServiceImpl;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,13 +17,13 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @Api(tags = "移动监测数据接口")
-@RequestMapping("/api/v1/data")
+@RequestMapping("/api/v1")
 public class MobileDataController {
 
-    private final DataServiceImpl dataServiceImpl;
+    private final MobileDataServiceImpl dataServiceImpl;
 
     @Autowired
-    public MobileDataController(DataServiceImpl dataServiceImpl) {
+    public MobileDataController(MobileDataServiceImpl dataServiceImpl) {
         this.dataServiceImpl = dataServiceImpl;
     }
 

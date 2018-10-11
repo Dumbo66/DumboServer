@@ -27,21 +27,21 @@
     </resultMap>
 
     <resultMap id="PerHourDataAvgResultMap" type="com.dumbo.server.entity.WaterData">
-        <id column="site_id" jdbcType="VARCHAR" property="siteId" />
-        <result column="record_time" jdbcType="TIMESTAMP" property="recordTime" />
-        <result column="ROUND(AVG(ph), 2)" jdbcType="FLOAT" property="ph" />
-        <result column="ROUND(AVG(temperature), 2)" jdbcType="FLOAT" property="temperature" />
-        <result column="ROUND(AVG(dissolved_oxygen), 2)" jdbcType="FLOAT" property="dissolvedOxygen" />
-        <result column="ROUND(AVG(conductivity), 2)" jdbcType="FLOAT" property="conductivity" />
-        <result column="ROUND(AVG(turbidity), 2)" jdbcType="FLOAT" property="turbidity" />
-    </resultMap>
+    <id column="site_id" jdbcType="VARCHAR" property="siteId" />
+    <result column="record_time" jdbcType="TIMESTAMP" property="recordTime" />
+    <result column="ROUND(AVG(ph), 2)" jdbcType="FLOAT" property="ph" />
+    <result column="ROUND(AVG(temperature), 2)" jdbcType="FLOAT" property="temperature" />
+    <result column="ROUND(AVG(dissolved_oxygen), 2)" jdbcType="FLOAT" property="dissolvedOxygen" />
+    <result column="ROUND(AVG(conductivity), 2)" jdbcType="FLOAT" property="conductivity" />
+    <result column="ROUND(AVG(turbidity), 2)" jdbcType="FLOAT" property="turbidity" />
+</resultMap>
 
     <!--增-->
     <insert id="insert" parameterType="com.dumbo.server.entity.WaterData">
        INSERT INTO water_data
           (site_id,record_time,ph,temperature,dissolved_oxygen,conductivity,turbidity)
        VALUES
-          (#{site_id,jdbcType=VARCHAR},#{record_time,jdbcType=TIMESTAMP},
+          (#{siteId,jdbcType=VARCHAR},#{recordTime,jdbcType=TIMESTAMP},
           #{ph,jdbcType=FLOAT},#{temperature,jdbcType=FLOAT},
           #{dissolvedOxygen,jdbcType=FLOAT}, #{conductivity,jdbcType=FLOAT},
           #{turbidity,jdbcType=FLOAT})
@@ -55,6 +55,14 @@
           water_data
         WHERE
             site_id = #{siteId} order by record_time desc limit 1;
+    </select>
+
+    <!--查询所有数据-->
+    <select id="selectAllData" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        SELECT
+        <include refid = "Base_Column_List" />
+        FROM
+        water_data ORDER BY record_time DESC;
     </select>
 
     <!--查询所有站点最新监测数据-->

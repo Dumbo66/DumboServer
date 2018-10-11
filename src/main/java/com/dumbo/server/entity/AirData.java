@@ -1,8 +1,11 @@
 package com.dumbo.server.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Date;
 
 public class AirData {
+    @JsonIgnore
     private Integer dataId;
 
     private String siteId;
@@ -32,6 +35,30 @@ public class AirData {
     private Float o3;
 
     private Float dustConcentration;
+
+    private char grade;
+
+    public char getGrade() {
+        float standard=airTemperature;
+        if(standard>=0 && standard<14){
+            grade='A';
+        }else if (standard>=14 && standard<18){
+            grade='B';
+        }else if (standard>=18&& standard<22){
+            grade='C';
+        }else if (standard>=22 && standard<26){
+            grade='D';
+        }else if (standard>=26 && standard<30){
+            grade='E';
+        }else if (standard>=30){
+            grade='F';
+        }
+        return grade;
+    }
+
+    public void setGrade(char grade) {
+        this.grade = grade;
+    }
 
     public Integer getDataId() {
         return dataId;

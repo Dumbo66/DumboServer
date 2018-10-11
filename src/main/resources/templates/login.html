@@ -1,46 +1,43 @@
-<!doctype html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
-<head th:replace="common::header('登录')">
-    <!-- Custom styles for this template -->
-    <link href="login.css" rel="stylesheet">
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- 以下3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>登录</title>
+
+    <!-- jquery -->
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- bootstrap -->
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <link href="css/login.css" rel="stylesheet">
 </head>
+<body>
+<!--顶部导航栏-->
+<div th:include="common::top_nav"></div>
 
-<body class="text-center">
-    <!-- 导航栏 -->
-    <div th:include="common::nav"></div>
+<div class="container">
 
-
-    <!-- 内容 -->
-    <div class="container" style="margin-top:30px">
-        <div class="row">
-            <!-- 左侧栏位 -->
-            <div class="col-sm-9">
-            </div>
-
-            <!-- 中间栏位 -->
-            <div class="col-sm-3">
-                <form class="form-signin">
-                    <h1 class="h3 mb-5 font-weight-normal"></h1>
-                    <img class="mb-4" src="/images/bb.jpg" alt="" width="72" height="72">
-                    <h1 class="h3 mb-3 font-weight-normal">登录小飞象</h1>
-                    <label for="inputEmail" class="sr-only">Email address</label>
-                    <input type="email" id="inputEmail" class="form-control" placeholder="邮箱" required autofocus>
-                    <label for="inputPassword" class="sr-only">Password</label>
-                    <input type="password" id="inputPassword" class="form-control" placeholder="密码" required>
-                    <div class="checkbox mb-2">
-                        <label><input type="checkbox" value="remember-me" > 记住密码</label>
-                    </div>
-                    <button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
-                    <p class="mt-5 mb-3 text-muted">&copy; 2017-2018</p>
-                </form>
-            </div>
-
-
-            </div>
+    <form class="form-signin">
+        <h2 class="form-signin-heading">Please sign in</h2>
+        <label for="inputEmail" class="sr-only">Email address</label>
+        <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" value="remember-me"> Remember me
+            </label>
         </div>
-    </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+    </form>
 
-    <!--Footer-->
-    <div th:include="common::footer"></div>
+</div> <!-- /container -->
+
 </body>
 </html>
